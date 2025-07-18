@@ -1,0 +1,16 @@
+# --- Secrets ---
+.env
+.streamlit/secrets.toml
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# --- VS Code ---
+.vscode/
+# --- Vector Store & Data ---
+/vector_store/
+# --- Environment Folders ---
+.venv/
+venv/
+env/
