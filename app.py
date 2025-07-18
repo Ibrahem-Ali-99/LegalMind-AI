@@ -46,7 +46,7 @@ def main():
 
         with st.chat_message("assistant"):
             response = pipeline.answer_question(prompt)
-            disclaimer = "\n\n---\n*Disclaimer: This information is for guidance only and does not constitute legal advice. You should consult a qualified lawyer.*"
+            disclaimer = "\n\n---\n*إخلاء مسؤولية: هذه المعلومات للاسترشاد فقط ولا تعد استشارة قانونية. يجب استشارة محامٍ مختص.*"
             full_response = response + disclaimer
             st.markdown(full_response)
         

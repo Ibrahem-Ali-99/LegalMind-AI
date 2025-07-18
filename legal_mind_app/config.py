@@ -6,10 +6,10 @@ class Config:
     DATA_PATH = PROJECT_ROOT / "data"
     
 
-    INPUT_CSV_DIR = DATA_PATH / "2_processed_csv"
-    CONSTITUTION_CSV = INPUT_CSV_DIR / "processed_constitution_articles.csv"
-    LABOR_LAW_CSV = INPUT_CSV_DIR / "processed_labor_law_articles.csv" 
-    
+    INPUT_CSV_DIR = DATA_PATH / "csv"  
+    CONSTITUTION_CSV = INPUT_CSV_DIR / "egyptian_constitution.csv" 
+    LABOR_LAW_CSV = INPUT_CSV_DIR / "egyptian_labor_law_2025.csv" 
+
 
     VECTOR_STORE_PATH = PROJECT_ROOT / "vector_store"
     VECTOR_STORE_PATH.mkdir(exist_ok=True)

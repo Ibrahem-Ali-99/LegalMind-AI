@@ -14,27 +14,27 @@ class LegalVectorStore:
 
     def build_and_save_index(self, embedding_model: SentenceTransformer):
         st.write("Building vector index from processed CSV files...")
-        
+            
         if not self.config.CONSTITUTION_CSV.exists() or not self.config.LABOR_LAW_CSV.exists():
             st.error(f"Error: One or both source CSV files are missing from '{self.config.INPUT_CSV_DIR}'.")
             st.error("Please run the data processing scripts first.")
             st.stop()
-            
+                
         df_c = pd.read_csv(self.config.CONSTITUTION_CSV).assign(source="constitution")
         df_l = pd.read_csv(self.config.LABOR_LAW_CSV).assign(source="labor_law")
-        
-        df_c = df_c.rename(columns={'arabic_number': 'arabic_number', 'text': 'text'})
-        df_l = df_l.rename(columns={'arabic_number': 'arabic_number', 'text': 'text'})
+            
+        df_c = df_c.rename(columns={'Arabic Number': 'arabic_number', 'Text': 'text'})
+        df_l = df_l.rename(columns={'Arabic Number': 'arabic_number', 'Text': 'text'})
 
         df_all = pd.concat([df_c[['arabic_number', 'text', 'source']], df_l[['arabic_number', 'text', 'source']]], ignore_index=True)
         df_all.to_csv(self.config.MERGED_DATA_CSV, index=False)
-        
+            
         embeddings = embedding_model.encode(df_all["text"].tolist(), show_progress_bar=True, convert_to_numpy=True)
         self.index = faiss.IndexFlatL2(embeddings.shape[1])
         self.index.add(embeddings.astype('float32'))
-        
+            
         faiss.write_index(self.index, str(self.config.FAISS_INDEX_FILE))
-        st.success(" Vector index built and saved.")
+        st.success("Vector index built and saved.")
 
     def load(self) -> bool:
         if not self.config.FAISS_INDEX_FILE.exists(): return False
